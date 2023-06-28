@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -31,7 +30,7 @@ public class MyController {
     return "dashboard";
   }
   @PostMapping("/register")
-  public void register(@RequestParam String usertype,@RequestParam String username, @RequestParam String fname,@RequestParam String lname, @RequestParam String phone){
+  public String register(@RequestParam String usertype, @RequestParam String username, @RequestParam String fname, @RequestParam String lname, @RequestParam String phone){
     UserDetailEntity saveduser = new UserDetailEntity(usertype,username,fname,lname,phone);
     userDetailRepository.save(saveduser);
     if(saveduser.getUsertype()=="Buyer"){
@@ -41,6 +40,7 @@ public class MyController {
       return "sellerdashboard";
     }
 
+    return usertype;
   }
 
 
